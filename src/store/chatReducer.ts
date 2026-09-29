@@ -129,7 +129,19 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
         chats = chats.map((c) => (c.id === chatId ? { ...c, unread: c.unread + 1 } : c));
       }
 
-      const next = [...list, { ...message, chatId }].sort((a, b) => a.timestamp - b.timestamp);
+      // A reply means the recipient has opened the chat: in Telegram/MAX writing to a chat
+      // marks it as read, so earlier outgoing messages are read even if the status webhook was missed
+      const previous =
+        message.direction === 'incoming'
+          ? list.map((m) =>
+              m.direction === 'outgoing' &&
+              (m.status === 'sent' || m.status === 'delivered') &&
+              m.timestamp <= message.timestamp
+                ? { ...m, status: 'read' as const }
+                : m,
+            )
+          : list;
+      const next = [...previous, { ...message, chatId }].sort((a, b) => a.timestamp - b.timestamp);
       return { ...state, chats, messages: { ...state.messages, [chatId]: next } };
     }
 

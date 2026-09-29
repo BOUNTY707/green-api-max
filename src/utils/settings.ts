@@ -10,5 +10,7 @@ export const REQUIRED_SETTINGS: InstanceSettings = {
 };
 
 export function isReceivingConfigured(settings: Partial<InstanceSettings>): boolean {
-  return !settings.webhookUrl && settings.incomingWebhook === 'yes';
+  return (
+    !settings.webhookUrl && settings.incomingWebhook === 'yes' && settings.outgoingWebhook === 'yes' // delivery / read statuses
+  );
 }

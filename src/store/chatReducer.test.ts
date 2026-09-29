@@ -174,3 +174,29 @@ describe('group chats', () => {
     ).toBeNull();
   });
 });
+
+describe('read receipts', () => {
+  it('marks earlier outgoing messages as read when the recipient replies', () => {
+    let state = chatReducer(withChat(), {
+      type: 'message/add',
+      message: msg({ id: 'o1', direction: 'outgoing', status: 'sent', timestamp: 100 }),
+    });
+    state = chatReducer(state, {
+      type: 'message/add',
+      message: msg({ id: 'i1', direction: 'incoming', timestamp: 200 }),
+    });
+    expect(state.messages['10000000']![0]!.status).toBe('read');
+  });
+
+  it('maps Telegram noAccount status to failed', () => {
+    expect(
+      notificationToAction({
+        typeWebhook: 'outgoingMessageStatus',
+        timestamp: 1,
+        idMessage: 'x',
+        chatId: '1',
+        status: 'noAccount',
+      }),
+    ).toMatchObject({ status: 'failed' });
+  });
+});

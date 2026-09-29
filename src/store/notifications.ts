@@ -56,7 +56,8 @@ export function notificationToAction(body: NotificationBody): ChatAction | null 
     }
 
     case 'outgoingMessageStatus': {
-      const status = body.status as MessageStatus;
+      // noAccount: the recipient has no account or hides the number (Telegram)
+      const status = (body.status === 'noAccount' ? 'failed' : body.status) as MessageStatus;
       if (!body.idMessage || !body.chatId || !STATUSES.includes(status)) return null;
       return { type: 'message/status', chatId: body.chatId, id: body.idMessage, status };
     }

@@ -38,8 +38,8 @@ export function SettingsBanner({ client }: { client: GreenApiClient }) {
   if (state === 'saved') {
     return (
       <div className="banner banner--success" role="status">
-        Настройки сохранены. Инстанс перезапускается — входящие сообщения начнут приходить в течение
-        ~5 минут.
+        Настройки сохранены. Инстанс перезапускается — сообщения и статусы начнут приходить в
+        течение ~5 минут.
         <button className="banner__close" onClick={() => setState('hidden')} aria-label="Скрыть">
           ×
         </button>
@@ -50,7 +50,7 @@ export function SettingsBanner({ client }: { client: GreenApiClient }) {
   return (
     <div className="banner banner--warning" role="alert">
       <p>
-        Приём входящих сообщений выключен в настройках инстанса
+        В настройках инстанса выключен приём входящих сообщений или статусов доставки
         {state === 'error' && ' (не удалось сохранить, попробуйте ещё раз)'}.
       </p>
       <button
