@@ -32,6 +32,16 @@ export interface StateInstanceResponse {
   stateInstance: 'notAuthorized' | 'authorized' | 'blocked' | 'starting' | 'yellowCard' | string;
 }
 
+type YesNo = 'yes' | 'no';
+
+export interface InstanceSettings {
+  webhookUrl: string;
+  incomingWebhook: YesNo;
+  outgoingWebhook: YesNo;
+  outgoingMessageWebhook: YesNo;
+  outgoingAPIMessageWebhook: YesNo;
+}
+
 export interface SendMessageResponse {
   idMessage: string;
 }

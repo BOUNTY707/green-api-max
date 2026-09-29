@@ -417,6 +417,47 @@ a {
   user-select: none;
 }
 
+/* ---------- Banner ---------- */
+
+.banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 16px 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.banner--warning {
+  background: color-mix(in srgb, var(--warning) 16%, transparent);
+}
+
+.banner--success {
+  padding-right: 36px;
+  background: color-mix(in srgb, var(--success) 16%, transparent);
+}
+
+.banner__close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.button--small {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
 /* ---------- Chat ---------- */
 
 .chat,

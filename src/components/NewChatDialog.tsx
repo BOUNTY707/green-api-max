@@ -37,7 +37,7 @@ export function NewChatDialog({ client, onCreate, onClose }: NewChatDialogProps)
       // MAX addresses users by chatId, so resolve it by phone number first
       const account = await client.checkAccount(phone);
       if (!account.exist) {
-        setError('Этот номер не зарегистрирован в MAX');
+        setError('Этот номер не зарегистрирован в мессенджере');
         return;
       }
       onCreate({ id: account.chatId, name: formatPhone(phone), phone });
@@ -100,7 +100,7 @@ export function NewChatDialog({ client, onCreate, onClose }: NewChatDialogProps)
           type="submit"
           disabled={loading || phone.length === 0}
         >
-          {loading ? 'Ищем в MAX…' : 'Создать чат'}
+          {loading ? 'Ищем…' : 'Создать чат'}
         </button>
       </form>
     </dialog>

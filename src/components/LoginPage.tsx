@@ -55,7 +55,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
         <AppLogo width={56} height={56} />
         <h1 className="login__title">Вход в чат</h1>
         <p className="login__subtitle">
-          Введите данные инстанса GREEN-API для мессенджера MAX. Их можно найти в{' '}
+          Введите данные инстанса GREEN-API (MAX или Telegram). Их можно найти в{' '}
           <a href="https://console.green-api.com" target="_blank" rel="noreferrer">
             личном кабинете
           </a>

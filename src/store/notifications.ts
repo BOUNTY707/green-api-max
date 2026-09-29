@@ -14,6 +14,11 @@ export function extractText(data?: MessageData): string {
   }
 }
 
+/** "-1002207127191" (group/channel) or "120363...@g.us" */
+export function isGroupChat(chatId: string): boolean {
+  return chatId.startsWith('-') || chatId.endsWith('@g.us');
+}
+
 const STATUSES: MessageStatus[] = ['sent', 'delivered', 'read', 'failed'];
 
 /**
@@ -27,6 +32,8 @@ export function notificationToAction(body: NotificationBody): ChatAction | null 
     case 'outgoingAPIMessageReceived': {
       const { senderData, idMessage } = body;
       if (!senderData?.chatId || !idMessage) return null;
+      // Groups and channels have negative ids: the UI is for personal chats only
+      if (isGroupChat(senderData.chatId)) return null;
       const incoming = body.typeWebhook === 'incomingMessageReceived';
       return {
         type: 'message/add',

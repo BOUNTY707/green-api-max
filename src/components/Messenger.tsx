@@ -6,6 +6,7 @@ import { notificationToAction } from '../store/notifications';
 import type { Chat, Credentials, Message, NotificationBody } from '../types';
 import { ChatWindow } from './ChatWindow';
 import { NewChatDialog } from './NewChatDialog';
+import { SettingsBanner } from './SettingsBanner';
 import { Sidebar } from './Sidebar';
 
 interface MessengerProps {
@@ -91,6 +92,7 @@ export function Messenger({ credentials, onLogout }: MessengerProps) {
         onSelect={(chatId) => dispatch({ type: 'chat/select', chatId })}
         onNewChat={() => setNewChatOpen(true)}
         onLogout={onLogout}
+        notice={<SettingsBanner client={client} />}
       />
 
       {activeChat ? (

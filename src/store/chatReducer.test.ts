@@ -160,3 +160,17 @@ describe('notificationToAction', () => {
     expect(notificationToAction({ typeWebhook: 'stateInstanceChanged', timestamp: 1 })).toBeNull();
   });
 });
+
+describe('group chats', () => {
+  it('ignores messages from groups and channels', () => {
+    expect(
+      notificationToAction({
+        typeWebhook: 'incomingMessageReceived',
+        timestamp: 1,
+        idMessage: 'g1',
+        senderData: { chatId: '-1002207127191' },
+        messageData: { typeMessage: 'textMessage', textMessageData: { textMessage: 'hi' } },
+      }),
+    ).toBeNull();
+  });
+});

@@ -53,9 +53,7 @@ export function ChatWindow({ chat, messages, onSend, onRetry, onBack, onDelete }
       </header>
 
       <div className="chat__messages" role="log" aria-live="polite">
-        {messages.length === 0 && (
-          <p className="chat__empty">Напишите первое сообщение — оно будет отправлено в MAX</p>
-        )}
+        {messages.length === 0 && <p className="chat__empty">Напишите первое сообщение</p>}
         {messages.map((message, index) => {
           const day = formatDayLabel(message.timestamp);
           const prevDay = index > 0 ? formatDayLabel(messages[index - 1]!.timestamp) : null;

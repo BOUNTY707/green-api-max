@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import type { PollingStatus } from '../hooks/useNotificationPolling';
 import type { Chat, Message } from '../types';
 import { formatChatDate } from '../utils/format';
@@ -14,6 +14,8 @@ interface SidebarProps {
   onSelect: (chatId: string) => void;
   onNewChat: () => void;
   onLogout: () => void;
+  /** Optional notice rendered under the header (e.g. settings warning) */
+  notice?: ReactNode;
 }
 
 const STATUS_TEXT: Record<PollingStatus, string> = {
@@ -31,6 +33,7 @@ export function Sidebar({
   onSelect,
   onNewChat,
   onLogout,
+  notice,
 }: SidebarProps) {
   const [query, setQuery] = useState('');
 
@@ -68,6 +71,8 @@ export function Sidebar({
           </button>
         </div>
       </header>
+
+      {notice}
 
       <label className="search">
         <SearchIcon width={18} height={18} />

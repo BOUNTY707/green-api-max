@@ -2,6 +2,7 @@ import type {
   CheckAccountResponse,
   Credentials,
   DeleteNotificationResponse,
+  InstanceSettings,
   ReceiveNotificationResponse,
   SendMessageResponse,
   StateInstanceResponse,
@@ -80,6 +81,18 @@ export class GreenApiClient {
 
   getStateInstance(signal?: AbortSignal): Promise<StateInstanceResponse> {
     return this.request(this.url('getStateInstance'), { signal });
+  }
+
+  getSettings(signal?: AbortSignal): Promise<InstanceSettings> {
+    return this.request(this.url('getSettings'), { signal });
+  }
+
+  /** The instance restarts; new settings apply within ~5 minutes. */
+  setSettings(
+    settings: Partial<InstanceSettings>,
+    signal?: AbortSignal,
+  ): Promise<{ saveSettings: boolean }> {
+    return this.post('setSettings', settings, signal);
   }
 
   checkAccount(phoneNumber: string, signal?: AbortSignal): Promise<CheckAccountResponse> {
